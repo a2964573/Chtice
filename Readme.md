@@ -18,10 +18,10 @@ chtice/prj/
 │
 └── src/                  # 메인 소스 코드
     ├── proc/             # 프로세스 로직
-    │   ├── common.h / .cpp       # 공통 유틸리티
-    │   ├── dbquery.h / .cpp      # SQL 쿼리 매니저
+    │   ├── common.h / .cpp       # 공통
+    │   ├── dbquery.h / .cpp      # SQL
     │   ├── chtice_daemon.h/.cpp  # Polling Engine 및 상태 감지
-    │   └── chtice_bot.h / .cpp   # 디스코드 슬래시 명령어 핸들러
+    │   └── chtice_bot.h / .cpp   # 디스코드 알림 / 슬래시 명령어 핸들러
     │
     └── lib/              # 코어 공통 라이브러리
           ├── client.h / .cpp     # TCP Socket 통신 클라이언트
