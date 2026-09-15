@@ -16,7 +16,7 @@
 ```text
 chtice/prj/
 │
-├── src/                  # 메인 소스 코드
+└── src/                  # 메인 소스 코드
     ├── proc/             # 프로세스 로직
     │   ├── common.h / .cpp       # 공통 유틸리티
     │   ├── dbquery.h / .cpp      # SQL 쿼리 매니저
