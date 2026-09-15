@@ -16,7 +16,6 @@
 ```text
 chtice/prj/
 │
-├── conf/                 # 환경 설정
 ├── src/                  # 메인 소스 코드
     ├── proc/             # 프로세스 로직
     │   ├── common.h / .cpp       # 공통 유틸리티
