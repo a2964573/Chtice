@@ -23,3 +23,6 @@ int batchManagementApiToken();
 // Sync DB Straemer Info
 int batchSyncStreamerInfoALL();
 
+// Get Live-Detail
+int batchGetLiveDetail();
+

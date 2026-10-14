@@ -71,6 +71,13 @@ int mainProcess()
             return -1;
         }
     }
+    else
+    if(type == "detail") {
+        if(batchGetLiveDetail() < 0) {
+            // error log
+            return -1;
+        }
+    }
     else {
         UTILLOG(LOGLV_ERR, __FUNCTION__, "Unkown Type.[%s]", type.c_str());
         return -1;
@@ -480,3 +487,52 @@ int batchSyncStreamerInfoALL()
     return 0;
 }
 ///////////////////////////////////////////////////////////////////////////////
+
+// Get Live-Detail ////////////////////////////////////////////////////////////
+int batchGetLiveDetail()
+{
+    HTTPS https;
+
+    std::string host = utilGetIniVar(_global.ini_path, "interface.ini", "CHZZK", "API_ADDRESS");
+    httpsSetHeader(https, "Host", host);
+    httpsSetHeader(https, "User-Agent", "Chtice/1.0");
+    httpsSetHeader(https, "Connection", "close");
+
+    httpsSetRequestType(https, REQUEST_TYPE_GET);
+
+    httpsSetHost(https, host);
+
+    std::string path = "/service/v2/channels/f26f5a2d1336f15cb2f3bc9513ab2501/live-detail";
+    httpsSetPath(https, path);
+
+    // address 는 세팅할 필요없음
+    httpsSetAddress(https, "");
+
+    std::string s_port = utilGetIniVar(_global.ini_path, "interface.ini", "CHZZK", "PORT");
+    int port = s_port.empty() ? 443 : std::stoi(s_port);
+    httpsSetPort(https, port);
+
+
+    int rtn = httpsRequestCall(https);
+    if(rtn < 0) {
+        UTILLOG(LOGLV_ERR, __FUNCTION__, "httpsRequestCall function error[%s]", https.res.error_msg.c_str());
+        return -1;
+    }
+    else
+    if(rtn != 200) {
+        UTILLOG(LOGLV_ERR, __FUNCTION__, "httpsRequestCall Bad Response[%d]", rtn);
+        return -1;
+    }
+
+    try {
+        fprintf(stdout, ">> [%d][%s]\n", https.res.status_code, https.res.body.c_str());
+    }
+    catch (const json::exception& e) {
+        UTILLOG(LOGLV_ERR, __FUNCTION__, "치지직 API JSON 파싱 실패: %s", e.what());
+        return -1;
+    }
+
+    return 0;
+}
+///////////////////////////////////////////////////////////////////////////////
+
